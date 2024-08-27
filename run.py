@@ -20,6 +20,7 @@ async def run_module_safe(
 
 async def process_farming(bot: Bot) -> None:
     await bot.process_farming()
+    await bot.close_session()
 
 
 async def run_module(accounts, process_func):
