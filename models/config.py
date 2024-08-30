@@ -1,8 +1,10 @@
 from better_proxy import Proxy
-from pydantic import BaseModel, PositiveInt, HttpUrl, PositiveFloat
+from pydantic import BaseModel, PositiveInt, ConfigDict
 
 
 class Account(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     email: str
     password: str
     imap_server: str = ""
@@ -10,6 +12,7 @@ class Account(BaseModel):
 
 
 class Config(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
     class DelayBeforeStart(BaseModel):
         min: int
@@ -17,6 +20,4 @@ class Config(BaseModel):
 
     accounts_to_farm: list[Account] = []
     threads: PositiveInt
-
-    anti_captcha_api_key: str
     keepalive_interval: PositiveInt
