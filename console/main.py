@@ -18,14 +18,12 @@ sys.path.append(os.path.realpath("."))
 
 class Console:
     MODULES = (
-        "Register",
         "Farm",
         "Complete tasks",
         "Export statistics",
         "Exit",
     )
     MODULES_DATA = {
-        "Register": "register",
         "Farm": "farm",
         "Exit": "exit",
         "Export statistics": "export_stats",
@@ -34,27 +32,6 @@ class Console:
 
     def __init__(self):
         self.rich_console = RichConsole()
-
-    def show_dev_info(self):
-        os.system("cls" if os.name == "nt" else "clear")
-
-        title = text2art("JamBit", font="small")
-        styled_title = Text(title, style="bold cyan")
-
-        version = Text("VERSION: 1.5", style="blue")
-        telegram = Text("Channel: https://t.me/JamBitPY", style="green")
-        github = Text("GitHub: https://github.com/Jaammerr", style="green")
-
-        dev_panel = Panel(
-            Text.assemble(styled_title, "\n", version, "\n", telegram, "\n", github),
-            border_style="yellow",
-            expand=False,
-            title="[bold green]Welcome[/bold green]",
-            subtitle="[italic]Powered by Jammer[/italic]",
-        )
-
-        self.rich_console.print(dev_panel)
-        print()
 
     @staticmethod
     def prompt(data: list):
@@ -78,7 +55,6 @@ class Console:
         table.add_column("Parameter", style="cyan")
         table.add_column("Value", style="magenta")
 
-        table.add_row("Accounts to register", str(len(config.accounts_to_register)))
         table.add_row("Accounts to farm", str(len(config.accounts_to_farm)))
         table.add_row("Threads", str(config.threads))
         table.add_row(
@@ -96,7 +72,6 @@ class Console:
         self.rich_console.print(panel)
 
     def build(self) -> None:
-        self.show_dev_info()
         self.display_info()
 
         module = self.get_module()

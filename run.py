@@ -11,9 +11,7 @@ from utils import setup
 from console import Console
 from database import initialize_database
 
-
 accounts_with_initial_delay: Set[str] = set()
-
 
 async def run_module_safe(
         account: Account, process_func: Callable[[Bot], Coroutine[Any, Any, Any]]
@@ -39,11 +37,6 @@ async def run_module_safe(
             return result
         finally:
             await bot.close_session()
-
-
-async def process_registration(bot: Bot) -> None:
-    operation_result = await bot.process_registration()
-    await file_operations.export_result(operation_result, "register")
 
 
 async def process_farming(bot: Bot) -> None:
@@ -85,7 +78,6 @@ async def run() -> None:
     reset_initial_delays()
 
     module_map = {
-        "register": (config.accounts_to_register, process_registration),
         "farm": (config.accounts_to_farm, farm_continuously),
         "complete_tasks": (config.accounts_to_farm, process_complete_tasks),
         "export_stats": (config.accounts_to_farm, process_export_stats),
