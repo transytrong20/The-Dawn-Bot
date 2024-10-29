@@ -13,6 +13,7 @@ from database import initialize_database
 
 accounts_with_initial_delay: Set[str] = set()
 
+
 async def run_module_safe(
         account: Account, process_func: Callable[[Bot], Coroutine[Any, Any, Any]]
 ) -> Any:
